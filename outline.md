@@ -1,0 +1,18 @@
+Image based self localization algorithms
+- Different approaches of localization -> Image Based
+- History of image based approaches
+- Challenges:
+  - Sensors : Noise, Angle, occlusion
+  - Dealing with different lighting situations
+  - Being Color invariant
+  - Computational Power
+  - Real Time
+  - Goal: Being able to play outside
+- Options:
+  - Detect different "things"
+    - Shape detection
+    - Line detection
+    - Edge detection
+  - How to detect them
+  - Global / Local Mapping
+  - 
