@@ -17,27 +17,33 @@
   \section{Introduction}
   Self Localization : Autonomously tracking and maintaining an estimate of a robot's location is important in almost all mobile robot tasks. There exist several different approaches to achieve a good localization. Some of them rely on images of the environment. This paper will present different techniques involving such image based approaches. The context of this work is the RoboCup Standard Platform League, where robots compete in a game of soccer. Within the RoboCup environment the setup of the soccer game is gradually getting more realistic. Initial supports like color coding, artificial markers and special lighting are increasingly removed from the game. With those changes the interest in improved image based localization is sparking. This paper describes several different approaches to create a localization that handles the new requirements.
 
-  \section{Image Based Localization}
-  Different Options
-  Why Image Based
-  Simple Idea
-  History of Image Based Approaches
+  \section{Introduction ?}
+  - Why Image Based
+    - What are other options
+  - Which Image features can be used for localization ?
+    - Lines, Shapes, Goal, Ball, Outside the "field"
+      - Whats is fixed, what can change ? -> final goal : realicstic environment
+      - This paper focusses on the most dominant approach : Detecting Lines
+
+  - History of Image Based Approaches ??
+    - Simplest idea
+    - Techniques used before
 
   \section{Challenges}
-  - Sensors : Noise, Angle, occlusion
+  - Sensors : Noise, Angle, Occlusion, Dynamic Scene
   - Dealing with different lighting situations
   - Being Color invariant
   - Computational Power
   - Real Time
-  - Goal: Being able to play outside
 
   \section{Overview of Techniques}
-  - Detect different things
-  - Shape detection
-  - Line detection
-  - Edge detection
-  - How to detect them
-  - Global / Local Mapping
+  - What steps are part of line detection for localization
+    - How are images processed
+    - How are lines generated from the image
+    - How are lines mapped to the model
+  - Image Processing
+  - Line Generation
+  - Model Mapping
 
   \section{Conclusion}
 
