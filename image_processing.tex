@@ -4,18 +4,20 @@
 
 \author{Richard Polzin}
 \title{Robot Soccer Localization in 2016}
-\subtitle{An Overview of Image Based Localization Techniques in Robot Soccer}
+\subtitle{Image Based Localization Techniques in Humanoid Robot Soccer League}
 \date{\today}
 
 \begin{document}
   \maketitle
 
   \begin{abstract}
-    \textbf{Abstract.} REPLACE THIS Self Localization : Autonomously tracking and maintaining an estimate of a robot's location is important in almost all mobile robot tasks. There exist several different approaches to achieve a good localization. Some of them rely on images of the environment. This paper will present different techniques involving such image based approaches. The context of this work is the RoboCup Standard Platform League, where robots compete in a game of soccer. Within the RoboCup environment the setup of the soccer game is gradually getting more realistic. Initial supports like color coding, artificial markers and special lighting are increasingly removed from the game. With those changes the interest in improved image based localization is sparking. This paper describes several different approaches to create a localization that handles the new requirements.
+    \textbf{Abstract.}
   \end{abstract}
 
   \section{Introduction}
-  Self Localization : Autonomously tracking and maintaining an estimate of a robot's location is important in almost all mobile robot tasks. There exist several different approaches to achieve a good localization. Some of them rely on images of the environment. This paper will present different techniques involving such image based approaches. The context of this work is the RoboCup Standard Platform League, where robots compete in a game of soccer. Within the RoboCup environment the setup of the soccer game is gradually getting more realistic. Initial supports like color coding, artificial markers and special lighting are increasingly removed from the game. With those changes the interest in improved image based localization is sparking. This paper describes several different approaches to create a localization that handles the new requirements.
+  "By the middle of the 21st century, a team of fully autonomous humanoid robot soccer players shall win a soccer game, complying with the official rules of FIFA, against the winner of the most recent World Cup.[]". This is the official goal of the RoboCup initiative. The international scientific initiative has several different leagues and competition domains, where different teams compete. In addition to the competition against the other teams the setting of the challenges become more and more realistic. Autonomous, programmable humanoid robots, called Nao, are used in the KidSize Humanoid Robot Soccer League. A 2016 Nao robot has a height of 58 cm and weighs 4.3 kg. It features an 1.6 GHz Intel Atom processor and 1 GB of RAM. The two legged robot is equipped with multiple sensors, as well as wifi, ethernet and usb.
+  In an attempt to make the environment of the game more realistic the characteristics of the soccer field are changed regulary. For examples navigation beacons have been used to flag points of interest on the field. Those beacons were last used in the 2008 RoboCup. Furthermore the field is no longer surrounded by walls and it's size wes increased to 60cm x 90cm. In the 2016 tournament the difficulty was increased by removing the color coding of the team's goals. Up to this year it was possible to differentiate between the teams by those colors. Now the goals are both colored white.
+  As the RoboCup competitors constanly try to keep up with the increased difficulty of the game, different self localization techniques have been investigated and researched. Self localization refers to the task of autonomously tracking and maintaining an estimate of a robot's location. It is important in many mobile robot tasks and several different approaches to achieve an good estimate exist. Some rely on ultrasonic sensors, some work with an electrical compass. The Nao robots are built to mimic a human they don't include ultrasonic sensors, but focus on cameras. Therefor this paper will focus on image based techniques.
 
   \section{Image Based Localization}
   Different Options
