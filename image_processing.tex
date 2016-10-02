@@ -3,8 +3,8 @@
 \usepackage{fullpage}
 
 \author{Richard Polzin}
-\title{Robot Soccer Localization in 2016}
-\subtitle{image-based Localization Techniques in RoboCup Standard Platform League}
+\title{Feature detection in the RoboCup Standard Platform League}
+\subtitle{An examination of the algorithms used by the 2016 world champion}
 \date{\today}
 
 \begin{document}
@@ -40,14 +40,22 @@
   \section{Overview of Techniques}
   Images [] show everything that defines the 2015 RoboCub SPL soccer field. It's a mostly-white field with lines and goals on a green carpet. The goal posts and crossbar are white, while the net and support structure can be white, gray or black. Lighting can only come from the ceiling and any changes in the lighting will not be cause for delay. Fields can be in visible range of one another, but if they are they must be at least three meters apart.
 
-  To offer information on current and successful techniques, the work of the best three teams of the RoboCup 2016 in Leipzig, Germany will be considered. The winning teams are B-Human, UT Austin Villa and Nao-Team HTWK, in descending order. In the description for RoboCup 2016, each of these teams will share their publications since RoboCup 2015.
+  The B-Human RoboCup team was founded in 2006 and started participating in the SPL in 2009. They competet in seven RoboCups and became world champion four times. Their code is available on GitHub with the intention of nurturing the scientific community and allowing teams who can't afford to develop a complete robot soccer system to participate. For localization the B-Human team uses 'field lines, their crossings, and the center circle' []. In 2015 they added support for penalty area detection. Those features are detected on an image, which in then used to conclude the robots possible positions. B-Human calls those features 'field features'. They include the features mentioned above and the goal frame on the floor.
 
-  The B-Human RoboCup team was founded in 2006 and started participating in the SPL in 2009. They competet in seven RoboCups and became world champion four times. Their code is available on GitHub with the intention of nurturing the scientific community and allowing teams who can't afford to develop a complete robot soccer system to participate. For localization the B-Human team uses 'field lines, their crossings, and the center circle' []. In 2015 they added support for penalty area detection. Those features are detected on an image, which in then used to conclude the robots possible positions. B-Human calls those features 'field features'. They include the features mentioned above and the goal frame on the floor. Field lines are detected by collecting all regions that are 'line shaped'. Those are regions that are white and border on green regions. In the next step a greedy algorithm enlarges a line 
-  The goal is detected by searching for white regions directly below the field borders. Robots and goal posts are the only objects that can be present on the field. Rules clearly define the size of a goal, so the Sobel operator is used to create an image emphasizing the edges. A Hough transform is then used to detect lines and possible goal lines are fitted onto a model of the goal to validate the hypothesis.
+  The images of the Nao's cameras are preprocessed to improve the results of the field feature extraction. [] states, that B-Human uses a color separation algorithm for this task. Due to the nature of the camera and the color space they record images in, detection of the color white is not trivial. The B-Human team solved this issue by detecting orange (the ball) and green (the field), deducing which parts of the field are probably white. This image is then used to detect the field features.
 
+  Field lines are detected by collecting all regions that are 'line shaped'. Those are regions that are white and border on green regions. In the next step a greedy algorithm enlarges a line to some extend. Those combined lines are classified and verified for further processing. Verification includes for example an observation of the lines height, so that a robot that accidentally was detected as a part of a line would trigger an error. The classification takes place on the crossing points. They are classified as \emph{T} or \emph{L} crossings, depending on the connected lines. Finally lines are clustered to detect possible circles and linear regression is used to fit a center circle in those clusters. If the fitting error is small enough, the center circle was found.
 
+  The penalty area detection was added in 2015 due to the removal of color coding on the goals. It was important to find another reliable area to compensate for that change. Due to the geometrical setup of the penalty area it is unique and therefor a good orientation. The goal's position can be approximated and even if the penalty point itself is obstructed, the rectangular area can be used as a reference.
+
+  Due to the white color of the goals it has become harder to detect them. The background of the goals can be white as well, so that the borders can be blurred. White goals, white supports and white backgrounds rise new challenges in the goal detection algorithms. B-Human detects goals by searching for white regions directly below the field borders. The Rules state, that Robots and goal posts are the only white objects that can be present on the field. The referee is wearing dark blue or black clothing and the ball is orange. Knowing the size of a goal the image can be cropped to the approximate dimensions and processed further. The Sobel operator is used to create an image that emphasizes the edges. A Hough transform is then used to detect lines. All possible goal lines are fitted onto a model of the goal and if a certain threshold is met, a goal was detected.
+
+  Combining the field features a model of the current field is constructed and mapped to the known dimensions of the field. In combination with probability theory and history tracking, this technique is used to localize the robot on the soccer field.
 
   \section{Conclusion}
+  In this paper a general introduction to the RoboCub Standard Platform League was given. The challenges of this league have been discussed with a focus on localizing a robot on the soccer field. This aspect was further discussed and the task was broken down into three parts. The first part, feature extraction, was then analyzed in detail and the techniques used by the current world champion team, B-Human, were presented. The B-Human team uses color based separation to prepare the image for a grid-based region finding algorithm. Those regions are grouped and combined to determine field lines and crossing, the penalty area and the center circle. To detect the goals the Sobel operator is used in combination with a Hough transform to detect the edges and fit the goal to a model.
+  The self localization of B-Human obviously is one of the best and some of the fundamental techniques used in the process were described in this paper. They are available in the B-Human framework, that can be used in the RoboCup competition and documented in their different publications.
+
 
 
 \end{document}
