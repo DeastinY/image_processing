@@ -1,10 +1,11 @@
-\documentclass[12pt, a4paper]{scrartcl}
-
+\documentclass[12pt, a4paper]{apa6}
+\usepackage[style=apa,sortcites=true,sorting=nyt,backend=biber]{biblatex}
+\addbibresource{bibliography.bib}
 \usepackage{fullpage}
 
 \author{Richard Polzin}
 \title{Feature detection in the RoboCup Standard Platform League}
-\subtitle{An examination of the algorithms used by the 2016 world champion}
+\shorttitle{An examination of the algorithms used by the 2016 world champion}
 \date{\today}
 
 \begin{document}
@@ -15,7 +16,7 @@
   \end{abstract}
 
   \section{Introduction}
-  'By the middle of the 21st century, a team of fully autonomous humanoid robot soccer players shall win a soccer game, complying with the official rules of FIFA, against the winner of the most recent World Cup.[]'. This is the official goal of the RoboCup initiative, an international scientific initiative which has several leagues and competition domains wherein robotic teams compete. In addition to competition against other teams, the physical setting of the challenges become more and more realistic year to year. Autonomous, programmable, humanoid robots called 'Nao' are used in the RoboCup Standard Platform League (SPL). A Nao V5 robot has a height of 58 cm and weighs 4.3 kg. It features an 1.6 GHz Intel Atom processor and 1 GB of RAM. The two legged robot is equipped with multiple sensors, as well as wifi, ethernet, and usb interfaces.
+  'By the middle of the 21st century, a team of fully autonomous humanoid robot soccer players shall win a soccer game, complying with the official rules of FIFA, against the winner of the most recent World Cup.' \cite{Kitano95robocup:the}. This is the official goal of the RoboCup initiative, an international scientific initiative which has several leagues and competition domains wherein robotic teams compete. In addition to competition against other teams, the physical setting of the challenges become more and more realistic year to year. Autonomous, programmable, humanoid robots called 'Nao' are used in the RoboCup Standard Platform League (SPL). A Nao V5 robot has a height of 58 cm and weighs 4.3 kg. It features an 1.6 GHz Intel Atom processor and 1 GB of RAM. The two legged robot is equipped with multiple sensors, as well as wifi, ethernet, and usb interfaces.
 
   In an attempt to make the environment of the game more realistic, the characteristics of the soccer field are changed regulary. For example, as in the 2008 RoboCup, navigation beacons were used to flag points of interest on the field. Furthermore, the field is no longer surrounded by walls and its size was increased to 60cm by 90cm. In the 2015 tournament, the goals were made color-neutral, whereas previously it was possible to differentiate goals by color.
 
@@ -55,7 +56,5 @@
   \section{Conclusion}
   In this paper a general introduction to the RoboCub Standard Platform League was given. The challenges of this league have been discussed with a focus on localizing a robot on the soccer field. This aspect was further discussed and the task was broken down into three parts. The first part, feature extraction, was then analyzed in detail and the techniques used by the current world champion team, B-Human, were presented. The B-Human team uses color based separation to prepare the image for a grid-based region finding algorithm. Those regions are grouped and combined to determine field lines and crossing, the penalty area and the center circle. To detect the goals the Sobel operator is used in combination with a Hough transform to detect the edges and fit the goal to a model.
   The self localization of B-Human obviously is one of the best and some of the fundamental techniques used in the process were described in this paper. They are available in the B-Human framework, that can be used in the RoboCup competition and documented in their different publications.
-
-
 
 \end{document}
