@@ -66,9 +66,9 @@
     \label{field}
   \end{wrapfigure}
 
-  Figure \ref{field} show everything that defines the 2015 RoboCub SPL soccer field. It's a mostly-white field with lines and goals on a green carpet. The goal posts and crossbar are white, while the net and support structure can be white, gray or black. Lighting can only come from the ceiling and any changes in the lighting will not be cause for delay. Fields can be in visible range of one another, but if they are they must be at least three meters apart.
+  Figure \ref{field} shows the definition of a 2015 RoboCub SPL soccer field. It's a mostly-white field with lines and goals on a green carpet. The goal posts and crossbar are white, while the net and support structure can be white, gray or black. Lighting can only come from the ceiling and any changes in the lighting will not be cause for delay. Fields can be in visible range of one another, but if they are they must be at least three meters apart.
 
-  The B-Human RoboCup team was founded in 2006 and started participating in the SPL in 2009. They competed in seven RoboCups and became world champion four times. Their code is available on GitHub with the intention of nurturing the scientific community and allowing teams who can't afford to develop a complete robot soccer system to participate. \cite{bhumanvis}, states  , that the B-Human team uses 'field lines, their crossings, and the center circle'. In 2015 they added support for penalty area detection. Those features are detected on an image, which is then used to conclude the robots possible positions. B-Human calls those features 'field features'. They include the features mentioned above and the goal frame on the floor.
+  The B-Human RoboCup team, founded in 2006, started participating in the SPL in 2009. They competed in seven RoboCups, becoming world champion four times. Their code is available on GitHub with the intention of nurturing the scientific community and allowing teams who can't afford to develop a complete robot soccer system to participate. \cite{bhumanvis}, states, that the B-Human team uses 'field lines, their crossings, and the center circle'. In 2015 they added support for penalty area detection. Those features are detected on an image, which is then used to conclude possible positions. B-Human calls those elements 'field features'. They include the features mentioned above and the goal frame on the floor.
 
   The images of the Nao's cameras are preprocessed to improve the results of the field feature extraction. \cite{bhumanvis} states, that B-Human uses a color separation algorithm for this task. Due to the nature of the camera and the color space they record images in, detection of the color white is not trivial. The B-Human team solved this issue by detecting orange (the ball) and green (the field), deducing which parts of the field are probably white. This image is then used to detect the field features.
 
@@ -83,6 +83,10 @@
   \section{Conclusion}
   In this paper a general introduction to the RoboCub Standard Platform League was given. The challenges of this league have been discussed with a focus on localizing a robot on the soccer field. This aspect was further discussed and the task was broken down into three parts. The first part, feature extraction, was then analyzed in detail and the techniques used by the current world champion team, B-Human, were presented. The B-Human team uses color based separation to prepare the image for a grid-based region finding algorithm. Those regions are grouped and combined to determine field lines and crossing, the penalty area and the center circle. To detect the goals the Sobel operator is used in combination with a Hough transform to detect the edges and fit the goal to a model.
   The self localization of B-Human obviously is one of the best and some of the fundamental techniques used in the process were described in this paper. They are available in the B-Human framework, that can be used in the RoboCup competition and documented in their different publications.
+
+  \newpage
+
+  \printbibliography
 
 
 
