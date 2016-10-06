@@ -37,14 +37,15 @@
   \section{Image-based Localization}
   In a game of soccer, where the robots need to react and collaborate quickly, localization is vital. Passing the ball, positioning, and dribbling all require fast and accurate localization. Localization can be split into local and global localization. Local localization focuses on objects distances relative to the robot. Questions arise and must be answered in very near real time. How far away are other players, goals, and walls? What is the distance to the wall? Answering these questions is integral to good play. On the other hand, global localization comes into play when a robot has to be removed from the field or is replaced. Maintaining the global position on the field allows for better positioning and general orientation, especially with the color coding of the goals removed. For high-quality play, it is important to keep track of the sites of the field. Having great dribbling and shooting many goals is not sufficient if the robot mixes up the enemy goal and its own.
 
-    \begin{wrapfigure}{r}{0.5\textwidth}
-      \begin{center}
-        \includegraphics[width=0.48\textwidth]{field.png}
-      \end{center}
-      \caption{Schematic diagram of the soccer field based on rules stated by the \cite{soccerfield}}
-    \end{wrapfigure}
+  \begin{wrapfigure}{r}{0.5\textwidth}
+    \begin{center}
+      \includegraphics[width=0.48\textwidth]{eyes.png}
+    \end{center}
+    \caption{Position of the cameras on the robots head based on documentation by \cite{naosheet}}
+    \label{eyes}
+  \end{wrapfigure}
 
-  Localization of the Nao robot is only possible with the sensors it provides. \cite{naosheet}, offers documentation on the different sensors. The Nao offers microphones, tactile sensors, bumbers, four sonar sensors, and two cameras. Neither microphones, tactile sensors, nor bumpers are valuable to detect objects far away. Only the camera and sonar sensors can be used. The sonar sensors are divided in two receiving and two emitting devices. Detection was initially possible in the range 20 cm to 80 cm, but with the V4 Version of the Nao, detection range increased to 20 cm to 2.55 m. The camera sensors are positioned in the head and provide an image with 1280 x 960 pixels at 30 frames per second. Image [] show the orientation of the cameras, while the sonar sensors can certainly be used for collision avoidance and player / ball detection, the camera sensors are more often used for localization. This paper, as well as the different techniques explained later on, will not use the sonar senors, but only work with the cameras.
+  Localization of the Nao robot is only possible with the sensors it provides. \cite{naosheet}, offers documentation on the different sensors. The Nao offers microphones, tactile sensors, bumbers, four sonar sensors, and two cameras. Neither microphones, tactile sensors, nor bumpers are valuable to detect objects far away. Only the camera and sonar sensors can be used. The sonar sensors are divided in two receiving and two emitting devices. Detection was initially possible in the range 20 cm to 80 cm, but with the V4 Version of the Nao, detection range increased to 20 cm to 2.55 m. The camera sensors are positioned in the head and provide an image with 1280 x 960 pixels at 30 frames per second. Figure \ref{eyes} show the orientation of the cameras, while the sonar sensors can certainly be used for collision avoidance and player / ball detection, the camera sensors are more often used for localization. This paper, as well as the different techniques explained later on, will not use the sonar senors, but only work with the cameras.
 
   After concluding that localization is important, and that cameras are the most promising sensors to use, the concept of image-based localization is explained. A good self-localization should be fast and reliable. Localization needs to run fast enough to react quickly to changes during play and still leave enoungh computational power for the other important algorithms. Furthermore, there should always be an solid estimate of the robots position and should be able to overcome the challenges described in detail in the next section. In general, such a localization process consists of three steps. First an image is recorded and some arbitrary feature is detected. For example the image is scanned for the rectangle of a goal. The second step creates an abstract model of the detected feature. A goal is perceived no longer as a flat rectangle, but as an 3D object. 3D position is determined, and the distance to the robot is calculated. In the final step the robots local map is positioned into the coordinate system of the whole soccer field. Based on the current vision of the robot and its distance to the goal the robots position on the soccer field is determined. The three steps must be individually well-executed and collectively accurate to achieve an optimal localization. Most papers published in the field of RoboCup SPL localization present techniques including all three steps, and adjust them according to a given strategy. Due to the limited scope of this paper, the comparison of techniques will focus on the first step: the extraction of physical geometric features from the image.
 
@@ -56,7 +57,16 @@
   In conclusion, there are many and varied challenges facing image-based localization which must be addressed to if the ultimate goal of beating a world-class human soccer team is to be achieved.
 
   \section{Overview of Techniques}
-  Images [] show everything that defines the 2015 RoboCub SPL soccer field. It's a mostly-white field with lines and goals on a green carpet. The goal posts and crossbar are white, while the net and support structure can be white, gray or black. Lighting can only come from the ceiling and any changes in the lighting will not be cause for delay. Fields can be in visible range of one another, but if they are they must be at least three meters apart.
+
+  \begin{wrapfigure}{r}{0.5\textwidth}
+    \begin{center}
+      \includegraphics[width=0.48\textwidth]{field.png}
+    \end{center}
+    \caption{Schematic diagram of the soccer field based on rules stated by the \cite{soccerfield}}
+    \label{field}
+  \end{wrapfigure}
+
+  Figure \ref{field} show everything that defines the 2015 RoboCub SPL soccer field. It's a mostly-white field with lines and goals on a green carpet. The goal posts and crossbar are white, while the net and support structure can be white, gray or black. Lighting can only come from the ceiling and any changes in the lighting will not be cause for delay. Fields can be in visible range of one another, but if they are they must be at least three meters apart.
 
   The B-Human RoboCup team was founded in 2006 and started participating in the SPL in 2009. They competet in seven RoboCups and became world champion four times. Their code is available on GitHub with the intention of nurturing the scientific community and allowing teams who can't afford to develop a complete robot soccer system to participate. For localization the B-Human team uses 'field lines, their crossings, and the center circle' []. In 2015 they added support for penalty area detection. Those features are detected on an image, which in then used to conclude the robots possible positions. B-Human calls those features 'field features'. They include the features mentioned above and the goal frame on the floor.
 
@@ -73,5 +83,7 @@
   \section{Conclusion}
   In this paper a general introduction to the RoboCub Standard Platform League was given. The challenges of this league have been discussed with a focus on localizing a robot on the soccer field. This aspect was further discussed and the task was broken down into three parts. The first part, feature extraction, was then analyzed in detail and the techniques used by the current world champion team, B-Human, were presented. The B-Human team uses color based separation to prepare the image for a grid-based region finding algorithm. Those regions are grouped and combined to determine field lines and crossing, the penalty area and the center circle. To detect the goals the Sobel operator is used in combination with a Hough transform to detect the edges and fit the goal to a model.
   The self localization of B-Human obviously is one of the best and some of the fundamental techniques used in the process were described in this paper. They are available in the B-Human framework, that can be used in the RoboCup competition and documented in their different publications.
+
+  \printbibliography
 
 \end{document}
